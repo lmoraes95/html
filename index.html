@@ -25,7 +25,7 @@
       const email = document.querySelector("#email").value;
 
       // Make a POST request to the Flask API endpoint
-      fetch("https://form-data-api.azurewebsites.net/", {
+      fetch("https://form-data-api.azurewebsites.net", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
