@@ -14,29 +14,32 @@
       <button type="submit">Submit</button>
     </form>    
   </body>
+
   <script>
-    const form = document.querySelector('#userForm');
-    form.addEventListener('submit', async (event) => {
+    // Listen for form submit
+    document.querySelector("#userForm").addEventListener("submit", (event) => {
       event.preventDefault();
-      const name = form.elements.name.value;
-      const email = form.elements.email.value;
-      try {
-        const response = await fetch('https://form-data-api.azurewebsites.net', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: `name=${name}&email=${email}`
-        });
+
+      // Get the form data
+      const name = document.querySelector("#name").value;
+      const email = document.querySelector("#email").value;
+
+      // Make a POST request to the Flask API endpoint
+      fetch("https://form-data-api.azurewebsites.net/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `name=${name}&email=${email}`
+      })
+      .then(response => {
         if (response.ok) {
-          alert('User added successfully');
-        } else {
-          throw new Error(response.statusText);
+          console.log("User added successfully");
         }
-      } catch (error) {
+      })
+      .catch(error => {
         console.error(error);
-        alert('Error adding user');
-      }
+      });
     });
   </script>
 </html>
