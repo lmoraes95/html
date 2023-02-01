@@ -14,4 +14,29 @@
       <button type="submit">Submit</button>
     </form>    
   </body>
+  <script>
+    const form = document.querySelector('#userForm');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const name = form.elements.name.value;
+      const email = form.elements.email.value;
+      try {
+        const response = await fetch('/api/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `name=${name}&email=${email}`
+        });
+        if (response.ok) {
+          alert('User added successfully');
+        } else {
+          throw new Error(response.statusText);
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Error adding user');
+      }
+    });
+  </script>
 </html>
